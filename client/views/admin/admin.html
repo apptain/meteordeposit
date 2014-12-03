@@ -1,0 +1,30 @@
+<template name="admin">
+  {{> adminPostsList}}
+</template>
+
+<template name="adminPostsList">
+  <h3>Posts</h3>
+  <a href="/post/create">Create New Post</a>
+  <table class="adminPosts">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each posts}}
+      <tr>
+        <td>
+          {{title}}
+        </td>
+         <td>
+          {{datePublished}}
+        </td>
+        <td>
+           <a href="/post/edit/{{slug}}">Edit</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+

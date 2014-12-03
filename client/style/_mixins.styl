@@ -1,0 +1,12 @@
+@import 'nib'
+
+step($start, $steps, $multiplier = $start, $unit="none")
+  for i in (1..$steps)
+    $start = $start*$multiplier
+  if $unit != "none"
+    unit($start, $unit)
+  else
+    $start
+
+percent($num)
+  unit($num * 100, '%')

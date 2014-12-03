@@ -1,0 +1,114 @@
+formIt_bg()
+  box-shadow rgba(0, 0, 0, .15) 0px 1px 3px 0px inset
+  background linear-gradient(top, rgba(249, 249, 249, .5), rgba(255, 255, 255, .5) 50%)
+  box-sizing border-box
+  border-radius 3px
+  background-size auto
+  transition border-color 1s ease
+  margin 0 0 10px 0
+  padding 5px 5px
+  border-top 1px solid #aaa !important //important needed to overwrite the un-namespaced Meteor auth styles
+  border-bottom 1px solid #eee !important
+  border-right 1px solid #ccc !important
+  border-left 1px solid #ccc !important
+  outline none
+  position relative
+  &focus
+    border 1px solid rgba(102, 204, 255, .9)
+    box-shadow rgba(102, 204, 255, .3) 0 0px 3px 1px, rgba(0, 0, 0, .3) 0px 1px 3px 0px inse
+
+formIt_txt()
+  &-moz-placeholder 
+    color #999
+  
+  &-webkit-input-placeholder
+    color #999
+  
+
+formIt()
+  formIt_bg()
+  formIt_txt()
+
+
+textarea 
+  formIt()
+  display block
+  height 600px
+  overflow auto
+  resize none
+
+
+input 
+  formIt()
+  //font-size $font-size * 1px
+  height 2.2em //for strange lineheight rendering in chrome and FF
+  line-height 1em
+  margin .4em auto
+  padding.35em .5em
+  &[type=checkbox] 
+    height 1.5em
+    margin 0 6px 0 0 
+    vertical-align bottom
+    width auto
+  
+
+label 
+  color #666
+  display inline-block
+  font-weight bold
+
+
+form 
+  clearfix()
+  font-family $f-secondary
+  text-align left
+  label 
+    float left
+    margin-right 4px
+  
+  /* Exceptions */
+  input[type=checkbox] + label, input[type=radio] + label 
+    color #333
+    display inline
+    font-weight normal
+  
+  .CodeMirror, textarea, input, select 
+     float left
+     margin-bottom 1em
+     width 100%
+  
+  button 
+    float left
+    margin-right 0.3em
+  
+  select 
+    margin-bottom 1.5em
+  
+  p 
+    margin-bottom 1.5em
+  
+  .formError 
+    color #ffcc00
+    float left
+    font-style italic
+  
+  &.disabled, &[disabled] 
+    > * 
+      opacity .5
+    
+    button 
+      opacity 1
+    
+  
+  .buttons 
+    clear both
+    text-align right
+    button, a, input[type=submit] 
+      display inline-block
+    
+    input[type=submit] 
+      width auto
+      float none
+    
+  
+
