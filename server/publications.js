@@ -6,12 +6,6 @@ Meteor.publish('posts', function () {
     return PostTypes.find();
 });
 
-Meteor.publish('updatesAllowed', function () {
-  console.log('updatesAllowedCheck');
-  return false; 
-
-});
-
 // Updates are only allowed in local dev. Until a security infrastructure can be built, the database can be deployed
 Posts.allow({
     insert: function (userId, post) {
