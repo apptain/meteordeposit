@@ -1,10 +1,10 @@
 Meteor.startup(function () {
     switch (process.env.ROOT_URL) {
-        case "http://apptain.com/":
+        case Config.ProdDomain:
             console.log('Prod Mode');
             CurrentProcessMode = ProcessMode.Prod;
             break;
-        case "http://localhost:3000/":
+        case Config.DevDomain:
             console.log('Dev Mode');
             CurrentProcessMode = ProcessMode.Dev;
             break;
