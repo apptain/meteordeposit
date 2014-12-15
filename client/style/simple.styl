@@ -1,26 +1,28 @@
-﻿@import '_variables';
-@import '_mixins';
+﻿@import '_variables'
+@import '_mixins'
 
+html
 body
-	font-family $f-primary
+  margin 0
+  padding 0
+  height 100%
 
-header, logowrap
-	padding 1em
-	border-bottom solid 4px #000
+header
+  background #000 50% 0 no-repeat
+  background-attachment fixed, fixed, fixed, scroll
+  background-image url(contours.png), url(noise.png), url(gridlines.png)
+  background-position 0 0, 0 0, -5px 5px, 0 50%
+  background-repeat repeat, repeat, repeat, no-repeat
+  background-size auto, auto, auto, cover
+  padding unit($phi, rem) unit($golden_major, rem)
+  img  
+    padding unit($phi, rem) unit($golden_major, rem)
+  h1 
+    padding unit($phi, rem) unit($golden_major, rem)
 
-ul.blog-post-list
-	li
-		list-style-type none
-		line-height step(1, 2, $phi, em)
-	h3
-		font-family $f-header
-		font-weight 700
-		font-size 22px
-		line-height 28px
-		margin 10px 0px 0px 0px
-
-
-
-
-
-
+.secondary
+  margin-left 600px
+  postion absolute
+  top 0
+  right 0
+  background grey

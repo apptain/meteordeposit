@@ -1,0 +1,11 @@
+<template name ="comboBox">  
+  <label for="{{name}}">{{name}}</label>
+  <div class="formError">{{errors[name]}}</div>
+  <select name="{{name}}">
+    <option value="all">All</option>
+    {{#each options}}
+      <option {{selectCheck ..}} value={{object.value}}>{{object.name}}</option>
+    {{/each}}
+  </select>
+</template>
+

@@ -1,12 +1,12 @@
-var selectedPost;
+var selectedPostDev;
 
-PostEditController = RouteController.extend({
+PostEditDevController = RouteController.extend({
   waitOn: function(){
     return [Meteor.subscribe('sites'), Meteor.subscribe('postTypes'), Meteor.subscribe('posts')]; 
   },
   data: {
-    selectedPost: function(){
-      return selectedPost; 
+    selectedPostDev: function(){
+      return selectedPostDev; 
     },  
     postTypes: function(){
       return PostTypes.find({});
@@ -17,21 +17,21 @@ PostEditController = RouteController.extend({
   }, 
   action: function() {
     if(this.params._slug){
-      selectedPost = Posts.findOne({ slug: this.params._slug });
+      selectedPostDev = Posts.findOne({ slug: this.params._slug });
     }
     else {
       //just read the form to assign black values
-      selectedPost = objectFromForm(Template.postForm);
+      selectedPostDev = objectFromForm(Template.postForm);
     }
     this.render(); 
   }
 });
 
-PostCreateController = PostEditController.extend({
-    template: 'postCreate' 
+PostCreateDevController = PostEditController.extend({
+    template: 'postCreateDev' 
 });
 
-Template.postForm.events({
+Template.postFormDev.events({
     'submit form': function(e, template) {
         e.preventDefault();
         var changes = objectFromForm(template);
@@ -44,7 +44,6 @@ Template.postForm.events({
             Posts.update(this._id, {$set: changes}, function(error, result){
                 if(error){
                     alert(error);
-                } else {
                     Iron.Location.go(Router.routes['admin']._path);
                 }
             });
@@ -64,21 +63,27 @@ Template.postForm.events({
     }
 })
 
-Template.postForm.helpers({
-  postTypes: function (){
-    return PostTypes.find({});          
-  },
-  sites: function () {
-    return Sites.find({}); 
-  }, 
-  postTypeCheck: function(post){
-    return post && this.name == post.type ? 'selected': '';
-  }, 
-  siteCheck: function(post){
-    return post && this.name == post.site ? 'selected': '';
+Template.postFormDev.helpers({
+  formFields: function () {
+  var a = selectedPostDev; 
+  var fields = [];  
+  for (var name in selectedPostDev)
+  {
+    if(name != '_id' && selectedPostDev.hasOwnProperty(name)){
+    var field={
+      templateName: 'textBox', 
+      name: name, 
+      value: selectedPostDev[name] 
+    }
+    var t = selectedPostDev[name]; 
+    fields.push(field); 
+    }
+  }
+    return fields; 
   }
 })
 
 Template.postForm.rendered = function () {
     $('[name=body]').htmlarea();
 }
+

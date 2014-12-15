@@ -1,0 +1,53 @@
+<template name="siteEdit">
+  <h3>Edit Site</h3>
+  {{#with selectedSite}}
+    {{> siteForm}}
+  {{/with}}
+</template>
+
+<template name="siteCreate">
+    <h3>Create Site</h3>
+    {{#with selectedSite}}
+        {{> siteForm}}
+    {{/with}}
+</template>
+
+<template name="siteForm">
+  <form>
+    <label for="name">Name</label>
+    <div class="formError">{{errors.name}}</div>
+    <input type="text" name="name" value="{{name}}" placeholder="Site name" />
+
+    <label for="name">Domain</label>
+    <div class="formError">{{errors.domain}}</div>
+    <input type="text" name="domain" value="{{domain}}" placeholder="Domain" />
+
+    <label for="name">Default Page Title</label>
+    <div class="formError">{{errors.title}}</div>
+    <input type="text" name="title" value="{{title}}" placeholder="Title" />
+
+    <label for="name">Logo</label>
+    <input name="logo" value="{{logo}}" />
+
+    <label for="name">favico</label>
+    <input name="favico" value="{{favico}}" />
+
+    <label for="css">CSS</label>
+    <div class="formError">{{errors.css}}</div>
+    <textarea name="css">{{css}}</textarea>
+
+    <label for="body">Analytics Code</label>
+    <div class="formError">{{errors.analyticsCode}}</div>
+    <textarea name="analyticsCode">{{analyticsCode}}</textarea>
+ 
+    <label for="metaDescription">Meta Description</label>
+    <div class="formError">{{errors.metaDescription}}</div>
+    <textarea name="metaDescription">{{metaDescription}}</textarea>
+
+    <div class="buttons">
+        <button class="delete btn">Delete</button>
+        <input class="save btn" type="submit" value="Save"/>
+    </div>
+  </form>
+</template>
+

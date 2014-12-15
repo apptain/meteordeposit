@@ -1,5 +1,6 @@
 <template name="admin">
   {{> adminPostsList}}
+  {{> adminSitesList}}
 </template>
 
 <template name="adminPostsList">
@@ -27,4 +28,28 @@
     </tbody>
   </table>
 </template>
+
+<template name="adminSitesList">
+  <h3>Sites</h3>
+  <a href="/site/create">Create New Site</a>
+  <table class="adminSites">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each sites}}
+      <tr>
+        <td>
+          {{name}}
+        </td>
+        <td>
+           <a href="/site/edit/{{name}}">Edit</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
 

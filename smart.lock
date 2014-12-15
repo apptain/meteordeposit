@@ -1,0 +1,16 @@
+/* { */
+/*   "meteor": {}, */
+/*   "dependencies": { */
+/*     "basePackages": { */
+/*       "iron:router": {} */
+/*     }, */
+/*     "packages": { */
+/*       "iron:router": { */
+/*         "git": "https://github.com/apptain/iron-router.git", */
+/*         "commit": "" */
+/*       } */
+/*     } */
+/*   } */
+/* } */
+/*    */
+/*  */

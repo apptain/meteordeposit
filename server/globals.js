@@ -3,4 +3,5 @@
     Dev: { url: Config.DevDomain }
 };
 
-CurrentProcessMode = {};
+var CurrentProcessMode = {};
+var CurrentDomain = {};

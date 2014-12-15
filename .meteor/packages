@@ -6,4 +6,8 @@
 meteor-platform
 mquandalle:stylus
 iron:router
+cfs:standard-packages
+cfs:filesystem
+manuelschoebel:ms-seo
+froala:editor
 

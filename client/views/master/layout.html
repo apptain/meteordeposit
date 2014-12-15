@@ -1,26 +1,34 @@
 ﻿<head>
-    <title></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/ico.ico">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800,700,300,600" rel="stylesheet" type="text/css">
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800,700,300,600" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 </body>
 
 <template name="layout">
-    <div class="headerwrap">
-        <header>
-            <div class="logowrap">
-                <h1>MeteorDeposit</h1>
-            </div>
-        </header>
-    </div>
-    <div class="mainwrap">
-        <main>
-            {{> yield}}
-        </main>
-    </div>
+  <header>
+      {{> Template.dynamic template=logo}}
+  </header>
+  <div class="secondary">
+    <p>A new season</p>
+  </div>  
+  <main>
+    {{> yield}}
+  </main>
+</template>
+
+<template name="imageLogo">
+  <a class="logo" href="/">
+    <img src="{{ logoPath }}" />
+  </a>
+</template>
+
+<template name="textLogo">
+  <a class="logo" href="/">
+    <h1>{{ siteName }}</h1>
+  </a>
 </template>

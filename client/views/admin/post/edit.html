@@ -13,12 +13,20 @@
 </template>
 
 <template name="postForm">
-  <div class="header"><div class="slider"></div></div>
-  <form>
+   <form>
     <label for="title">Title</label>
     <div class="formError">{{errors.title}}</div>
     <input type="text" name="title" value="{{title}}" placeholder="Post title" />
 
+    <label for="site">Site</label>
+    <div class="formError">{{errors.site}}</div>
+    <select name="site">
+      <option value="all">All</option>
+      {{#each sites}}
+        <option {{siteCheck ..}} value={{site}}>{{name}}</option>
+      {{/each}}
+    </select>
+    
     <label for="postType">Type</label>
     <div class="formError">{{errors.postType}}</div>
     <select name="postType">
@@ -27,13 +35,16 @@
       {{/each}}
     </select>
 
+    <label for="datePublished">Date Published</label>
+    <div class="formError">{{errors.datePublished}}</div>
+    <input name="datePublished" value={{datePublished}} />
+    
     <label for="body">Body (Markdown)</label>
     <div class="formError">{{errors.body}}</div>
-    <textarea class="body" name="body" placeholder="Ideas formatted in Markdown">{{body}}</textarea>
-
+    <textarea name="body" placeholder="Ideas formatted in Markdown">{{body}}</textarea>
     <div class="buttons">
-        <button class="delete btn">Delete</button>
-        <input class="save btn" type="submit" value="Save"/>
+      <button class="delete btn">Delete</button>
+      <input class="save btn" type="submit" value="Save" />
     </div>
-  </form>
+</form>
 </template>

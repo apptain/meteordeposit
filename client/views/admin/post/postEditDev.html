@@ -1,0 +1,27 @@
+<template name="postEditDev">
+  <h3>Edit Post</h3>
+  {{#with selectedPostDev}}
+    {{> postFormDev}}
+  {{/with}}
+</template>
+
+<template name="postCreateDev">
+    <h3>Create Post</h3>
+    {{#with selectedPostDev}}
+        {{> postFormDev}}
+    {{/with}}
+</template>
+
+<template name="postFormDev">
+ <h2>PostFormDev</h2>
+ <form>
+    {{#each formFields}}
+      {{> Template.dynamic template=templateName}}
+    {{/each}}
+  </form>
+  <div class="buttons">
+    <button class="delete btn">Delete</button>
+    <input class="save btn" type="submit" value="Save" />
+  </div>
+</template>
+
