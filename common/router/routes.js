@@ -9,8 +9,8 @@ Router.configure({
 Router.map(function () {
   this.route('home', { path: '/' });
   this.route('admin', { path: '/admin' });
-  this.route('post.createDev', { path: '/post/create' });
-  this.route('post.editDev', { path: '/post/edit/:_slug' });
+  this.route('content.create', { path: '/content/create' });
+  this.route('content.edit', { path: '/content/edit/:_slug' });
   this.route('site.create', { path: '/site/create' });
   this.route('site.edit', { path: '/site/edit/:_name' });
 });

@@ -1,15 +1,15 @@
-var selectedPost;
+var selectedContent;
 
-PostEditController = RouteController.extend({
+ContentEditController = RouteController.extend({
   waitOn: function(){
-    return [Meteor.subscribe('sites'), Meteor.subscribe('postTypes'), Meteor.subscribe('posts')]; 
+    return [Meteor.subscribe('sites'), Meteor.subscribe('contentTypes'), Meteor.subscribe('content')]; 
   },
   data: {
-    selectedPost: function(){
-      return selectedPost; 
+    selectedContent: function(){
+      return selectedContent; 
     },  
-    postTypes: function(){
-      return PostTypes.find({});
+    contentTypes: function(){
+      return ContentTypes.find({});
     },
     sites: function () {
       return Sites.find({}); 
@@ -17,23 +17,24 @@ PostEditController = RouteController.extend({
   }, 
   action: function() {
     if(this.params._slug){
-      selectedPost = Posts.findOne({ slug: this.params._slug });
+      selectedContent = Content.findOne({ slug: this.params._slug });
     }
     else {
       //just read the form to assign black values
-      selectedPost = objectFromForm(Template.postForm);
+      selectedContent = objectFromForm(Template.contentForm);
     }
     this.render(); 
   }
 });
 
-PostCreateController = PostEditController.extend({
-    template: 'postCreate' 
+ContentCreateController = ContentEditController.extend({
+    template: 'contentCreate' 
 });
 
-Template.postForm.events({
+Template.contentForm.events({
     'submit form': function(e, template) {
         e.preventDefault();
+        debugger;
         var changes = objectFromForm(template);
         changes.slug = titleToSlug(changes.title);  
         if(changes.title === '' || changes.body === ''){
@@ -41,7 +42,7 @@ Template.postForm.events({
             return;
         }
         if(this._id){
-            Posts.update(this._id, {$set: changes}, function(error, result){
+            Content.update(this._id, {$set: changes}, function(error, result){
                 if(error){
                     alert(error);
                 } else {
@@ -49,7 +50,7 @@ Template.postForm.events({
                 }
             });
         } else {
-            Posts.insert(changes, function(error, result){
+            Content.insert(changes, function(error, result){
                 if(error){
                     alert(error);
                 } else {
@@ -60,25 +61,25 @@ Template.postForm.events({
     },
     'click .delete': function() {
         if (confirm('Are you sure you want to delete "' + this.title + '"?'))
-            Posts.remove(this._id)
+            Content.remove(this._id)
     }
 })
 
-Template.postForm.helpers({
-  postTypes: function (){
-    return PostTypes.find({});          
+Template.contentForm.helpers({
+  contentTypes: function (){
+    return ContentTypes.find({});          
   },
   sites: function () {
     return Sites.find({}); 
   }, 
-  postTypeCheck: function(post){
-    return post && this.name == post.type ? 'selected': '';
+  contentTypeCheck: function(content){
+    return content && this.name == content.type ? 'selected': '';
   }, 
-  siteCheck: function(post){
-    return post && this.name == post.site ? 'selected': '';
+  siteCheck: function(content){
+    return content && this.name == content.site ? 'selected': '';
   }
 })
 
-Template.postForm.rendered = function () {
+Template.contentForm.rendered = function () {
     $('[name=body]').htmlarea();
 }

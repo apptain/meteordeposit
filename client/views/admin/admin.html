@@ -1,18 +1,18 @@
 <template name="admin">
-  {{> adminPostsList}}
+  {{> adminContentList}}
   {{> adminSitesList}}
 </template>
 
-<template name="adminPostsList">
-  <h3>Posts</h3>
-  <a href="/post/create">Create New Post</a>
-  <table class="adminPosts">
+<template name="adminContentList">
+  <h3>Content</h3>
+  <a href="/content/create">Create New Content</a>
+  <table class="adminContent">
     <thead>
       <tr>
       </tr>
     </thead>
     <tbody>
-      {{#each posts}}
+      {{#each content}}
       <tr>
         <td>
           {{title}}
@@ -21,7 +21,7 @@
           {{datePublished}}
         </td>
         <td>
-           <a href="/post/edit/{{slug}}">Edit</a>
+           <a href="/content/edit/{{slug}}">Edit</a>
         </td>
       </tr>
       {{/each}}

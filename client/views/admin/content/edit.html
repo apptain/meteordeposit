@@ -1,37 +1,37 @@
-<template name="postEdit">
-  <h3>Edit Post</h3>
-  {{#with selectedPost}}
-    {{> postForm}}
+<template name="ContentEdit">
+  <h3>Edit Content</h3>
+  {{#with selectedContent}}
+    {{> contentForm}}
   {{/with}}
 </template>
 
-<template name="postCreate">
-    <h3>Create Post</h3>
-    {{#with selectedPost}}
-        {{> postForm}}
+<template name="ContentCreate">
+    <h3>Create Content</h3>
+    {{#with selectedContent}}
+        {{> contentForm}}
     {{/with}}
 </template>
 
-<template name="postForm">
+<template name="contentForm">
    <form>
     <label for="title">Title</label>
     <div class="formError">{{errors.title}}</div>
-    <input type="text" name="title" value="{{title}}" placeholder="Post title" />
+    <input type="text" name="title" value="{{title}}" placeholder="Content title" />
 
     <label for="site">Site</label>
     <div class="formError">{{errors.site}}</div>
     <select name="site">
-      <option value="all">All</option>
+      <option value="all">all</option>
       {{#each sites}}
         <option {{siteCheck ..}} value={{site}}>{{name}}</option>
       {{/each}}
     </select>
     
-    <label for="postType">Type</label>
-    <div class="formError">{{errors.postType}}</div>
-    <select name="postType">
-      {{#each postTypes}}
-        <option {{postTypeCheck ..}} value={{postType}}>{{name}}</option>
+    <label for="contentType">Type</label>
+    <div class="formError">{{errors.contentType}}</div>
+    <select name="contentType">
+      {{#each contentTypes}}
+        <option {{contentTypeCheck ..}} value={{contentType}}>{{name}}</option>
       {{/each}}
     </select>
 

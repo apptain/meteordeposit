@@ -3,11 +3,11 @@
         this.next();
     },
     waitOn: function () {
-        return [Meteor.subscribe('posts'), Meteor.subscribe('sites')];
+        return [Meteor.subscribe('content'), Meteor.subscribe('sites')];
     },
     data: {
-      posts: function () {
-          return Posts.find({});
+      content: function () {
+          return Content.find({});
       }, 
       sites: function () {
           return Sites.find({});

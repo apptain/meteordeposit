@@ -1,21 +1,37 @@
-Meteor.publish('posts', function () {
-    return Posts.find();
+Meteor.publish('content', function () {
+  if(CurrentProcessMode === ProcessMode.Dev){
+    return Content.find();
+  } else {
+    return []; 
+  }
 });
 
-Meteor.publish('postTypes', function () {
-    return PostTypes.find();
+Meteor.publish('siteContent', function () {
+  var domain = process.env.ROOT_URL; 
+  var siteName = Sites.findOne({domain: domain}).name; 
+  return Content.find({ $or: [{site: siteName}, {site : 'all'}] });
+});
+
+Meteor.publish('contentTypes', function () {
+  return ContentTypes.find();
 });
 
 Meteor.publish('sites', function () {
-    return Sites.find();
+  return Sites.find();
 });
 
 Meteor.publish('pages', function () {
-    return Pages.find();
+  return Pages.find();
 });
 
+Meteor.publish('sitePortfolio', function () {
+  var domain = process.env.ROOT_URL; 
+  var siteName = Sites.findOne({domain: domain}).name; 
+  return Content.find({site: siteName, contentType: 'Portfolio'}); 
+}); 
+
 // Updates are only allowed in local dev. Until a security infrastructure can be built, the database can be deployed
-Posts.allow({
+Content.allow({
     insert: function (userId, post) {
         return CurrentProcessMode === ProcessMode.Dev;
     },
@@ -28,7 +44,7 @@ Posts.allow({
     fetch: []
 });
 
-PostTypes.allow({
+ContentTypes.allow({
     insert: function (userId, post) {
         return CurrentProcessMode === ProcessMode.Dev;
     },

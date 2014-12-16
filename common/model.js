@@ -1,12 +1,10 @@
-Types = new Meteor.Collection('types'); 
+Content = new Mongo.Collection('content');
+ContentTypes = new Mongo.Collection('contentTypes'); 
 
-Posts = new Meteor.Collection('posts');
-PostTypes = new Meteor.Collection('postTypes'); 
+Sites = new Mongo.Collection('sites'); 
+Pages = new Mongo.Collection('pages'); 
+Controls = new Mongo.Collection('controls'); 
 
-Sites = new Meteor.Collection('sites'); 
-Pages = new Meteor.Collection('pages'); 
-Controls = new Meteor.Collection('controls'); 
-
-var Images = new Meteor.Collection('images', {
+var Images = new Mongo.Collection('images', {
   stores: [new FS.Store.FileSystem("images", {path: '/public'})] 
 }); 
