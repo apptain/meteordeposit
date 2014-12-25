@@ -24,7 +24,57 @@ Meteor.startup(function () {
       domain: 'http://localhost:3000/'
     });
   }
-
+ Pages.remove({});  
+  if(Pages.find().count() === 0){
+    Pages.insert({
+      site: ['dev', 'meteordeposit'], 
+      name: 'Test Home', 
+      route: 'TestHome',
+      pageUrl: '/test',
+      description: '', 
+      keywords: '', 
+      htmlInHeader: '', 
+      index: true,
+      showInNav: false, 
+      primaryContent: 'blogPostList', 
+      secondaryContent: '', 
+      spriteCssClass: 'html' //For treeview
+    });
+    
+    Pages.insert({
+      site: ['dev', 'meteordeposit'], 
+      name: 'What Is Meteor Deposit?',
+      route: 'WhatIsMeteorDeposit',  
+      pageUrl: '/what-is-meteor-deposit',
+      showInNav: true, 
+      groupOnly: true,
+      spriteCssClass: 'folder',
+      childPages: [{
+        site: ['dev', 'meteordeposit'], 
+        name: 'A Multisite CMS!', 
+        pageUrl: '/a-multisite-cms',
+        description: '', 
+        keywords: '', 
+        htmlInHeader: '', 
+        showInNav: true, 
+        primaryContent: 'Write Me!', 
+        secondaryContent: '', 
+        spriteCssClass: 'html' //For treeview
+        }, 
+        {site: ['dev', 'meteordeposit'], 
+        name: 'A Package for Use With Meteor', 
+        pageUrl: '/a-package-for-use-with-meteor',
+        description: '', 
+        keywords: '', 
+        htmlInHeader: '', 
+        showInNav: true, 
+        primaryContent: 'Make me True!', 
+        secondaryContent: '',
+        spriteCssClass: 'html'
+      }]
+    });
+  }
+  
   if(ContentTypes.find().count() === 0){
       ContentTypes.insert({
         name: 'Blog',           

@@ -1,7 +1,9 @@
 Template.layout.helpers({
   logo : function () {
-    return Session.get('siteMeta').logo != 'undefined' && Session.get('siteMeta').logo != '' ? 
-      'imageLogo' : 'textLogo';  
+    if(Session.get('siteMeta').logo != 'undefined' && Session.get('siteMeta').logo != '')
+      return 'imageLogo';
+    else
+      return 'textLogo';  
   }
 }) 
 

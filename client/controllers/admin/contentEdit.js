@@ -1,5 +1,6 @@
 var selectedContent;
 
+debugger;
 ContentEditController = RouteController.extend({
   waitOn: function(){
     return [Meteor.subscribe('sites'), Meteor.subscribe('contentTypes'), Meteor.subscribe('content')]; 

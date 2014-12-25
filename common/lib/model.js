@@ -1,5 +1,5 @@
-Content = new Mongo.Collection('content');
-ContentTypes = new Mongo.Collection('contentTypes'); 
+Content = new Mongo.Collection('MD.contentBlocks');
+ContentTypes = new Mongo.Collection('MD.contentTypes'); 
 
 Sites = new Mongo.Collection('sites'); 
 Pages = new Mongo.Collection('pages'); 
