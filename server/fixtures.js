@@ -1,13 +1,11 @@
 Meteor.startup(function () {
   switch (process.env.ROOT_URL) {
-      case Config.ProdDomain:
-          console.log('Prod Mode');
-          CurrentProcessMode = ProcessMode.Prod;
-          break;
-      case Config.DevDomain:
-          console.log('Dev Mode');
-          CurrentProcessMode = ProcessMode.Dev;
-          break;
+    case Config.ProdDomain:
+      CurrentProcessMode = ProcessMode.Prod;
+      break;
+    case Config.DevDomain:
+      CurrentProcessMode = ProcessMode.Dev;
+      break;
   }
   
   if(Sites.find().count() === 0){
@@ -31,6 +29,7 @@ Meteor.startup(function () {
       name: 'Test Home', 
       route: 'TestHome',
       pageUrl: '/test',
+      title: 'Test Home',
       description: '', 
       keywords: '', 
       htmlInHeader: '', 

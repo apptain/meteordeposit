@@ -21,13 +21,9 @@ Meteor.publish('sites', function () {
 });
 
 Meteor.publish('sitePages', function () {
-  console.log('getSitePages'); 
-  console.log('url ' + process.env.ROOT_URL);
   var domain = process.env.ROOT_URL; 
-  console.log(domain);
   var siteName = Sites.findOne({domain: domain}).name; 
   return Pages.find({ site : siteName }); 
-  //return Pages.find({}); 
 });
 
 Meteor.publish('sitePortfolio', function () {

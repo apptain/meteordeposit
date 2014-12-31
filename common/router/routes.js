@@ -1,4 +1,4 @@
-LegionRouter.configure({
+Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'Loading',
   notFoundTemplate: 'NotFound',
@@ -6,22 +6,80 @@ LegionRouter.configure({
   routeControllerNameConverter: 'upperCamelCase'
 });
 
+Router.options.autoStart = false;
+
 var DynamicControllers = [];
+
 
 var addPageRoute = function (router, page) {
   
-  DynamicControllers[page.route] = RouteController.extend({});
-      Template.__define__(page.route, function(){
-      return '<h1>Hello Test!</h1>' 
-    });
-  UI.render(Template[page.route]); 
+  window[page.route + 'Controller'] = RouteController.extend({
+    waitOn: function(){
+     return Meteor.subscribe("siteContent");
+    }, 
+    data:{
+      post: function(){
+        return Content.findOne();
+      }, 
+      content: function(){
+        return Content.find({});
+      }
+    } 
+  });
+
+  //https://meteorhacks.com/how-blaze-works.html
+  debugger;
+  Template[page.route] = new Template('Template.' + page.route, ( function(){
+     var view = this;
+     return [ Blaze._TemplateWith(function() {
+     return "secondary";
+       }, function() {
+     return Spacebars.include(view.lookupTemplate("contentFor"), function() {
+       return [ "\n    ", HTML.H1("I'm Secondary Content"), "\n  " ];
+     });
+     }), "\n  ", Spacebars.include(view.lookupTemplate("postList")) ];
+   }));  
+
+  //   return [ 
+  //       // {{#contentFor "secondary"}}
+  //       //  <h1>I'm Secondary Content</h1>
+  //       // {{/contentFor}}
+  //     HTML.Raw("<h1>Post List</h1>\n  "),
+  //     Spacebars.include(this.lookupTemplate("postList")) ]; 
+  // }));
+  
+  // Template.__define__(page.route, function(){
+  //   var view = this;
+  //   return [ Blaze._TemplateWith(function() {
+  //   return "secondary";
+  //     }, function() {
+  //   return Spacebars.include(view.lookupTemplate("contentFor"), function() {
+  //     return [ "\n    ", HTML.H1("I'm Secondary Content"), "\n  " ];
+  //   });
+  //   }), "\n  ", Spacebars.include(view.lookupTemplate("postList")) ];
+  // });  
+  //Blaze.render(Template[page.route], document.body); 
+  //Blaze.render(Template[page.route], document.body); 
   router.route(page.route, { path: page.pageUrl }); 
   
+  router.start(); 
+  //invalidate Router._locationComputation by updating currentController
+  
+  //Router._locationComputation._func = locationFunction; 
+  //Router._currentController = null;
+  //Router._locationComputation.invalidate(); 
+ 
+        //Router.allRoutesLoaded = true;
+        //console.log('page added for ' + page.pageUrl); 
+ 
 }
 
+debugger;
+//var locationFunction = Router._locationComputation._func; 
+//Router._locationComputation._func = function() {}; 
 
+Router.map(function () {
 
-LegionRouter.map(function () {
   debugger;
   this.route('home', { path: '/' });
   this.route('admin', { path: '/admin' });
@@ -34,37 +92,52 @@ LegionRouter.map(function () {
 var router = this;
 
 var page = {
+  site: 'dev', 
   route: 'testMe', 
   pageUrl: '/testme'
 }
 var DynamicControllers = [];
 
-if(Meteor.isClient){
-  addPageRoute(router, page);
-}
+// if(Meteor.isClient){
+//   addPageRoute(router, page);
+// }
    if (Meteor.isClient) {
-     var tPages = Session.get('pages');
-     
-     Tracker.autorun(function (computation) {
-     if(Session.get('pages')){
-           
-        _.each(Session.get('pages'), function(page){
+      Meteor.call('sitePages', function (error, result) {
+      if (error) {
+        debugger;
+      } else {
+         _.each(result, function(page){
            addPageRoute(router, page); 
-         });
-         Session.set('allPagesSet', true); 
-     }}); 
-     if(typeof(Session.get('pages') === undefined)) {
-        
-             Meteor.subscribe("sitePages", {
-       onReady: function () { 
-          
-         var pages = Pages.find({}).fetch()
-         Session.set('pages', pages); 
-         console.log("onReady", arguments); },
-       onError: function () { console.log("onError", arguments); }
-     });
+         debugger;
+        });  
+      }
+    });
+}
 
-     } 
+     // var tPages = Session.get('pages');
+     //
+     // Tracker.autorun(function (computation) {
+     // if(Session.get('pages')){
+     //       
+     //    _.each(Session.get('pages'), function(page){
+     //       addPageRoute(router, page); 
+     //   Session.set('siteMeta', result);
+     //   return;    
+     //     });
+     //     Session.set('allPagesSet', true); 
+     // }}); 
+     // if(typeof(Session.get('pages') === undefined)) {
+     //    
+     //         Meteor.subscribe("sitePages", {
+     //   onReady: function () { 
+     //      
+     //     var pages = Pages.find({}).fetch()
+     //     Session.set('pages', pages); 
+     //     console.log("onReady", arguments); },
+     //   onError: function () { console.log("onError", arguments); }
+     // });
+
+   //  } 
    //   Deps.autorun(function () {
    //   Meteor.subscribe("sitePages", {
    //     onReady: function (t) { var DynamicControllers = [];
@@ -81,7 +154,6 @@ if(Meteor.isClient){
    //   });
    // }); 
    //
-   }
   
 });
 
@@ -95,13 +167,13 @@ if (Meteor.isServer) {
 
 
 
-LegionRouter.plugin('authorize', {
+Router.plugin('authorize', {
   only: ['admin', 'site.create', 'site.edit']
 });
 
 var siteMeta; 
 
-LegionRouter.waitOn(function () {
+Router.waitOn(function () {
   siteMeta = Session.get('siteMeta'); 
   if (!siteMeta){
     Meteor.call('getSiteMeta', function (error, result) {
@@ -117,7 +189,7 @@ LegionRouter.waitOn(function () {
   } 
 });
 
-LegionRouter.onAfterAction(function () {
+Router.onAfterAction(function () {
   if(typeof(siteMeta) != 'undefined'){
 
     document.title = siteMeta.title;      

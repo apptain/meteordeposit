@@ -27,6 +27,9 @@ Package.on_use(function (api) {
   api.use('iron:location@1.0.3');
   api.use('iron:controller@1.0.3');
 
+  
+  api.add_files('lib/utils.js'); 
+  //api.add_files('lib/legion_route.js'); 
   api.add_files('lib/legion_router.js'); 
 
   //exports

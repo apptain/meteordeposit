@@ -11,10 +11,10 @@
 
 <template name="layout">
   <header>
-      {{> Template.dynamic template=logo}}
+    {{> Template.dynamic template=logo}}
   </header>
   <div class="secondary">
-    <p>A new season</p>
+    {{> yield "secondary"}}  
   </div>  
   <main>
     {{> yield}}

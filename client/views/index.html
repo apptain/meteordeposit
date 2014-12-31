@@ -1,5 +1,8 @@
 <template name="index">
-    {{> postList}}
+  {{#contentFor "secondary"}}
+    <h1>I'm Secondary Content</h1>
+  {{/contentFor}}
+  {{> postList}}
 </template>
 
 

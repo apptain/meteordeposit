@@ -9,6 +9,100 @@ var assert = Iron.utils.assert;
 
 //Currently a client side only implementation
 if(Meteor.isClient) {
+  this.allRoutesLoaded = false;
+
+  //#region override start
+  LegionRouter.__proto__.start = function () {
+    debugger;
+    var self = this;
+    var prevLocation;
+
+    self._locationComputation = Deps.autorun(function locationComputation (c) {
+      debugger;
+      var controller;
+      var loc = Iron.Location.get();
+      var hash, pathname, search;
+      var current = self._currentController;
+
+      if (!current || (prevLocation && prevLocation.path !== loc.path)) {
+        controller = self.dispatch(loc.href);
+
+        // if we're going to the server cancel the url change
+        if (controller.willBeHandledOnServer())
+          loc.cancelUrlChange();
+      } else {
+        self._scrollToHash(loc.hash);
+        // either the query or hash has changed so configure the current
+        // controller again.
+        current.configureFromUrl(loc.href);
+      }
+
+      prevLocation = loc;
+    });
+  };
+  //#endregion
+
+  //#region override route
+    //XXX seems like we could put a params method on the route directly and make it reactive
+  LegionRouter.prototype.route = function (path, fn, opts) {
+    var typeOf = function (val) { return Object.prototype.toString.call(val); };
+    assert(typeOf(path) === '[object String]' || typeOf(path) === '[object RegExp]', "Router.route requires a path that is a string or regular expression.");
+
+    if (typeof fn === 'object') {
+      opts = fn;
+      fn = opts.action;
+    }
+
+    debugger;
+    var route = new LegionRoute(path, fn, opts);
+
+    opts = opts || {};
+
+    // don't mount the route
+    opts.mount = false;
+
+    // stack expects a function which is exactly what a new Route returns!
+    var handler = this._stack.push(path, route, opts);
+
+    handler.route = route;
+    route.handler = handler;
+    route.router = this;
+    
+    assert(!this.routes._byPath[handler.path],
+      "A route for the path " + JSON.stringify(handler.path) + " already exists by the name of " + JSON.stringify(handler.name) + ".");
+    this.routes._byPath[handler.path] = route;
+
+    this.routes.push(route);
+
+    if (typeof handler.name === 'string')
+      this.routes[handler.name] = route;
+
+    return route;
+  };
+  //#endregion
+
+  //#region override createController from router
+  LegionRouter.__proto__.createController = function (url, context) {
+    debugger;
+    // see if there's a route for this url
+    var route = this.findFirstRoute(url);
+    var controller;
+
+    context = context || {};
+
+    if (route)
+      // let the route decide what controller to use
+      controller = route.createController({layout: this._layout});
+    else
+      // create an anonymous controller
+      controller = new RouteController({layout: this._layout});
+
+    controller.router = this;
+    controller.configureFromUrl(url, context, {reactive: false});
+    return controller;
+  };
+  //#endregion
+
   //#region override dispatch from router_client
   LegionRouter.__proto__.dispatch = function (url, context, done) {
     var self = this;
@@ -88,8 +182,30 @@ if(Meteor.isClient) {
   };
   //#endregion
   
+  //#region override createController from router
+  LegionRouter.prototype.createController = function (url, context) {
+    // see if there's a route for this url
+    var route = this.findFirstRoute(url);
+    var controller;
+
+    context = context || {};
+
+    if (route)
+      // let the route decide what controller to use
+      controller = route.createController({layout: this._layout});
+    else
+      // create an anonymous controller
+      controller = new RouteController({layout: this._layout});
+
+    controller.router = this;
+    controller.configureFromUrl(url, context, {reactive: false});
+    return controller;
+  };
+  //#endregion
   //#region override findFirstRoute
   LegionRouter.__proto__.findFirstRoute = function (url) {
+   debugger;
+   var domain = Url.parse(url).rootUrl + '/'; 
    for (var i = 0; i < this.routes.length; i++) {
     if (this.routes[i].handler.test(url, {}))
       return this.routes[i];
@@ -99,25 +215,5 @@ if(Meteor.isClient) {
   }
   //#endregion
 
-//#region override createController from router
-LegionRouter.prototype.createController = function (url, context) {
-  // see if there's a route for this url
-  var route = this.findFirstRoute(url);
-  var controller;
-
-  context = context || {};
-
-  if (route)
-    // let the route decide what controller to use
-    controller = route.createController({layout: this._layout});
-  else
-    // create an anonymous controller
-    controller = new RouteController({layout: this._layout});
-
-  controller.router = this;
-  controller.configureFromUrl(url, context, {reactive: false});
-  return controller;
-};
-//#endregion
 
 }
