@@ -1,7 +1,7 @@
 HomeController = RouteController.extend({
   template: 'index',
   waitOn: function(){
-   return Meteor.subscribe("siteContent");
+   return Meteor.subscribe("content");
   }, 
   data:{
     post: function(){

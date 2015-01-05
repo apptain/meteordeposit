@@ -1,0 +1,51 @@
+
+$type_h_font_lineheight = 1.313em
+// Fallback font stack from http://cssfontstack.com/
+$type_h_font_family = 'Exo 2', 'Arial Black', 'Arial Bold', Gadget, sans-serif
+$type_h_font_weight = 700
+
+$type_h_font_sizes = {
+  'h1': 3,
+  'h2': 2.25,
+  'h3': 1.5,
+  'h4': 1.313,
+  'h5': 1.125,
+  'h6': 1
+}
+
+$type_h_font_vmargins = {
+  'h1': 0.563,
+  'h2': 0.625,
+  'h3': 1.313,
+  'h4': 1.313,
+  'h5': 1.313,
+  'h6': 0.75
+}
+
+h_tags($factor=1)
+  h1, h2, h3, h4, h5, h6
+    font-family $type_h_font_family
+    line-height $type_h_font_lineheight
+    font-weight $type_h_font_weight
+  for h_lvl, value in $type_h_font_sizes
+    {h_lvl}
+      ((value * $factor) < 1) ? $size = 1 : $size = value * $factor
+      font-size unit($size, em)
+      margin unit( $type_h_font_vmargins[h_lvl], em) 0
+
+*
+  box-sizing border-box
+
+h_tags()
+
+// @media (max-width: 500*$px)
+//   h_tags(0.8)
+//
+// @media (max-width: 400*$px)
+//   h_tags(0.65)
+//
+// @media (max-width: 300*$px)
+//   h_tags(0.5)
+//
+
+

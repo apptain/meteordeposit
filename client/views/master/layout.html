@@ -13,12 +13,12 @@
   <header>
     {{> Template.dynamic template=logo}}
   </header>
+  <div class="primary">
+    {{> yield}}
+  </div>
   <div class="secondary">
     {{> yield "secondary"}}  
   </div>  
-  <main>
-    {{> yield}}
-  </main>
 </template>
 
 <template name="imageLogo">

@@ -6,14 +6,7 @@
 meteor-platform
 mquandalle:stylus
 iron:router
-cfs:standard-packages
-cfs:filesystem
-manuelschoebel:ms-seo
-froala:editor
-pascoual:otp
 accounts-password
 alanning:roles
 amplify
-apptain:iron-legion
-miktam:server-cache
 
