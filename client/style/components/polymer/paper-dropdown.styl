@@ -1,0 +1,16 @@
+lesscss-percentage(n)
+  (n * 100)%
+@import '../../lib/import'
+dropdown-dark()
+  color color-white
+  &::shadow
+    #ripple, #background
+      background-color color-primary
+  #ripple, #background
+    background-color color-primary
+  .core-selected
+    background-color color-primary-darkest
+.dropdown-dark
+  dropdown-dark()
+paper-dropdown.dropdown-dark
+  @extend .dropdown-dark

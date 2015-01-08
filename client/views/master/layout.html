@@ -4,6 +4,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="//fonts.googleapis.com/css?family=Open+Sans:400,800,700,300,600" rel="stylesheet" type="text/css">
+  <!-- Web Componenets polyfill -->
+  <script src="/components/webcomponentsjs/webcomponents.js"></script>
 </head>
 
 <body>
@@ -14,6 +16,10 @@
     {{> Template.dynamic template=logo}}
   </header>
   <div class="primary">
+      <paper-input-decorator label="Email Address" error="We need a valid email!"
+          floatingLabel class="input-light">
+          <input is="core-input" id="email" type="email" required>
+        </paper-input-decorator>
     {{> yield}}
   </div>
   <div class="secondary">

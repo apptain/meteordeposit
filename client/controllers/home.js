@@ -8,7 +8,7 @@ HomeController = RouteController.extend({
       return Content.findOne();
     }, 
     content: function(){
-      return Content.find({});
+      return Content.find({}, {sort: {datePublished: -1}}); 
     }
   }
 })

@@ -3,6 +3,10 @@ Meteor.methods({
     var domain = process.env.ROOT_URL; 
     var site = Sites.findOne({ domain: domain}); 
     var SitePages = Pages.find({}).fetch();
+    debugger;
+    var SpacebarsCompiler = Package['spacebars-compiler'].SpacebarsCompiler;
+    var codeGen = SpacebarsCompiler.codeGen;
+    console.log(codeGen); 
     return SitePages; 
   }, 
   updatesAllowedCheck: function () {
@@ -15,7 +19,9 @@ Meteor.methods({
   getSiteMeta: function () {
     var domain = process.env.ROOT_URL; 
     var site = Sites.findOne({ domain: domain}); 
-    return site; 
+    if(site)
+      return site; 
+    return domain;
   }, 
   
 })

@@ -11,7 +11,7 @@ Router.options.autoStart = false;
 var DynamicControllers = [];
 
 var addPageRoute = function (router, page) {
-  
+
   window[page.route + 'Controller'] = RouteController.extend({
     waitOn: function(){
      return Meteor.subscribe("content");
@@ -26,10 +26,11 @@ var addPageRoute = function (router, page) {
     } 
   });
 
+
   //https://meteorhacks.com/how-blaze-works.html
   debugger;
   Template[page.route] = new Template('Template.' + page.route, ( function(){
-     var view = this;
+  var view = this;
      return [ Blaze._TemplateWith(function() {
      return "secondary";
        }, function() {
@@ -44,8 +45,7 @@ var addPageRoute = function (router, page) {
 }
 
 Router.map(function () {
-
-  this.route('home', { path: '/' });
+  this.route('home', { path: '/home' });
   this.route('admin', { path: '/admin' });
   this.route('content.create', { path: '/content/create' });
   this.route('content.edit', { path: '/content/edit/:_slug' });
@@ -53,7 +53,7 @@ Router.map(function () {
   this.route('site.edit', { path: '/site/edit/:_name' });
   this.route('pages', {path: '/pages' });
 
-var router = this;
+  var router = this;
 
 var page = {
   site: 'dev', 
@@ -64,11 +64,11 @@ var page = {
    if (Meteor.isClient) {
       Meteor.call('sitePages', function (error, result) {
       if (error) {
-        debugger;
+        
       } else {
          _.each(result, function(page){
            addPageRoute(router, page); 
-         debugger;
+         
         });  
       }
     });
@@ -89,6 +89,7 @@ Router.waitOn(function () {
       if (error) {
         
       } else {
+        console.log(result); 
         Session.set('siteMeta', result);
         return;    
       }

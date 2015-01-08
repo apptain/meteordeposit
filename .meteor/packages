@@ -4,9 +4,22 @@
 # but you can also edit it by hand.
 
 meteor-platform
+less
 mquandalle:stylus
 iron:router
 accounts-password
 alanning:roles
 amplify
 
+copleykj:livestamp
+dburles:collection-helpers
+linto:jquery-ui
+matb33:collection-hooks
+matteodem:easy-search
+ongoworks:speakingurl
+reywood:publish-composite
+seriousm:emoji-continued
+yasaricli:slugify
+differential:vulcanize
+meteorhacks:inject-initial
+apptain:kendo-ui
