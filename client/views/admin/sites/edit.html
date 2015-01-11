@@ -1,4 +1,55 @@
+<template name="adminSiteNav">
+  {{#contentFor "nav"}}
+    <core-menu class="nav">
+      <style>
+        div.k-treeview {
+          overflow: hidden;
+        }
+
+        #submenu {
+          margin: 0 0 0 12px;
+        }
+
+        :host(.font-scalable) > #submenu {
+          margin: 0 0 0 0.25em;
+        }
+      </style>
+      <core-submenu label="Pages" icon="apps" active>
+        <ul id="pagesTreeview"></ul>
+        {{#each page}}
+          <span>{{name}}</span>
+        {{/each}}
+      </core-submenu>
+      <a href="#">
+        <paper-item>
+          <core-icon icon="settings"></core-icon>
+          Settings
+        </paper-item>
+      </a>
+      <a href="/admin/content">
+        <paper-item>
+          <core-icon icon="editor:insert-drive-file"></core-icon>
+          Manage Content
+        </paper-item>
+      </a>
+      <a href="/sign-out">
+        <paper-item>
+          <core-icon icon="exit-to-app"></core-icon>
+          Sign out
+        </paper-item>
+      </a>
+    </core-menu>
+    <core-menu class="">
+      <paper-item label="{{currentEmail}}" class="list-item current-user">
+      </paper-item>
+    </core-menu>
+  {{/contentFor}}
+</template>
+
 <template name="siteEdit">
+  {{#contentFor "nav"}}
+    {{>adminSiteNav}}
+  {{/contentFor}}
   <h3>Edit Site</h3>
   {{#with selectedSite}}
     {{> siteForm}}
@@ -6,10 +57,13 @@
 </template>
 
 <template name="siteCreate">
-    <h3>Create Site</h3>
-    {{#with selectedSite}}
-        {{> siteForm}}
-    {{/with}}
+  {{#contentFor "nav"}}
+    {{>adminSiteNav}}
+  {{/contentFor}}
+  <h3>Create Site</h3>
+  {{#with selectedSite}}
+      {{> siteForm}}
+  {{/with}}
 </template>
 
 <template name="siteForm">

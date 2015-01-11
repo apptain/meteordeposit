@@ -1,8 +1,54 @@
 <template name="admin">
-  {{> drawer}}
+  {{#contentFor "nav"}}
+    <core-menu class="nav">
+      <style>
+        #submenu {
+          margin: 0 0 0 12px;
+        }
+
+        :host(.font-scalable) > #submenu {
+          margin: 0 0 0 0.75em;
+        }
+      </style>
+      <core-submenu label="Sites" icon="apps" active>
+        {{#each sites}}
+          <a href="/site/edit/{{name}}">
+            <paper-item data-action="switch-project">
+              <core-icon icon="chevron-right"></core-icon>
+              {{name}}
+            </paper-item>
+          </a>                
+        {{/each }}
+      </core-submenu>
+      <a href="#">
+        <paper-item>
+          <core-icon icon="settings"></core-icon>
+          Settings
+        </paper-item>
+      </a>
+      <a href="/admin/content">
+        <paper-item>
+          <core-icon icon="editor:insert-drive-file"></core-icon>
+          Manage Content
+        </paper-item>
+      </a>
+      <a href="/sign-out">
+        <paper-item>
+          <core-icon icon="exit-to-app"></core-icon>
+          Sign out
+        </paper-item>
+      </a>
+    </core-menu>
+    <core-menu class="">
+      <paper-item label="{{currentEmail}}" class="list-item current-user">
+      </paper-item>
+    </core-menu>
+  {{/contentFor}}
   {{> adminContentList}}
   {{> adminSitesList}}
 </template>
+
+
 
 <template name="adminContentList">
   <h3>Content</h3>

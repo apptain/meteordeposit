@@ -82,5 +82,7 @@ Template.contentForm.helpers({
 })
 
 Template.contentForm.rendered = function () {
-    $('[name=body]').htmlarea();
+    $('[name=body]').kendoEditor({
+      encoded: false
+    });
 }

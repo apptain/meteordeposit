@@ -1,14 +1,15 @@
 var selectedSite;
 
 SiteEditController = RouteController.extend({
+  layoutTemplate: 'adminLayout', 
   waitOn: function(){
-    return [Meteor.subscribe('sites')]; 
+    return [Meteor.subscribe('sites'), Meteor.subscribe('sitePages')]; 
   },
   data: {
     selectedSite: function(){
       return selectedSite; 
     },  
-      siteTypes: function(){
+    siteTypes: function(){
       return SiteTypes.find({});
     }
   }, 
@@ -95,4 +96,24 @@ Template.siteForm.rendered = function () {
     htmlMode: true,
     mode: 'htmlmixed'
   });
+}
+
+debugger;
+
+Template.siteEdit.rendered = function () {
+  var pages = Pages.find({}).fetch();
+  debugger;
+  var dataSource = new kendo.data.HierarchicalDataSource({
+      data: pages, 
+      schema: {
+        model: {
+          children: "childPages"
+        }
+      }
+  });
+
+  $("#pagesTreeview").kendoTreeView({
+      dataSource: dataSource,
+      dataTextField: "name"
+  });  
 }

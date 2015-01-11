@@ -1,0 +1,39 @@
+<template name="adminLayout">
+ 
+  <core-drawer-panel data-drawer-panel>
+    <!-- Drawer -->
+    <core-header-panel mode="waterfall" drawer>
+      <core-toolbar class="toolbar toolbar-dark">
+        <a class="header-logo" href="/">
+          <img src="/apptain.png"/>
+        </a>
+      </core-toolbar>
+      <div layout vertical fit>
+        {{> yield "nav"}}
+             </div>
+    </core-header-panel>
+
+    <!-- Main Content -->
+    <core-header-panel mode="waterfall" main>
+      <core-toolbar class="toolbar toolbar-primary">
+        {{#if narrow}}
+        <paper-icon-button icon="menu" data-action="toggle-drawer">
+        </paper-icon-button>
+        {{/if}}
+        {{> yield "contentToolbar"}}
+      </core-toolbar>
+
+      <div class="content">
+        {{#if UI.contentBlock}}
+        {{> UI.contentBlock}}
+        {{else}}
+        {{> yield}}
+        {{/if}}
+      </div>
+    </core-header-panel>
+
+  </core-drawer-panel>
+
+
+</template>
+

@@ -28,7 +28,6 @@ var addPageRoute = function (router, page) {
 
 
   //https://meteorhacks.com/how-blaze-works.html
-  debugger;
   Template[page.route] = new Template('Template.' + page.route, ( function(){
   var view = this;
      return [ Blaze._TemplateWith(function() {

@@ -5,32 +5,71 @@ Package.describe({
 
 Package.on_use(function (api) {
   api.use("jquery", "client");
-  
-  api.add_files([
-    'lib/lib/kendo.core.js', 
-    'lib/lib/kendo.list.js'
+  api.add_files(
+  [
+    'lib/kendo.core.js', 
+    'lib/kendo.data.js',
+    'lib/kendo.data.odata.js',
+    'lib/kendo.data.xml.js',
+    'lib/kendo.binder.js', 
+    'lib/kendo.button.js', 
+    'lib/kendo.fx.js', 
+    'lib/kendo.list.js',
+    'lib/kendo.autocomplete.js', 
+    'lib/kendo.grid.js',
+    'lib/kendo.groupable.js',
+    'lib/kendo.imagebrowser.js',
+    'lib/kendo.filtermenu.js',
+    'lib/kendo.pager.js',
+    'lib/kendo.sortable.js',
+    'lib/kendo.splitter.js',
+    'lib/kendo.reorderable.js', 
+    'lib/kendo.resizable.js', 
+    'lib/kendo.listview.js',
+    'lib/kendo.panelbar.js',
+    'lib/kendo.popup.js',
+    'lib/kendo.progressbar.js',
+    'lib/kendo.validator.js', 
+    'lib/kendo.web.js', 
+    'lib/kendo.selectable.js', 
+    'lib/kendo.multiselect.js',   
+    'lib/kendo.notification.js',
+    'lib/kendo.numerictextbox.js',
+    'lib/kendo.slider.js', 
+    'lib/kendo.tabstrip.js', 
+    'lib/kendo.tooltip.js', 
+    'lib/kendo.userevents.js', 
+    'lib/kendo.upload.js', 
+    'lib/kendo.window.js',
+    'lib/kendo.maskedtextbox.js',
+    'lib/kendo.menu.js',
+    'lib/kendo.calendar.js', 
+    'lib/kendo.router.js', 
+    'lib/kendo.colorpicker.js', 
+    'lib/kendo.combobox.js', 
+    'lib/kendo.datepicker.js',
+    'lib/kendo.timepicker.js', 
+    'lib/kendo.datetimepicker.js', 
+    'lib/kendo.timezones.js',    
+    'lib/kendo.scheduler.js', 
+    'lib/kendo.scheduler.agendaview.js',  
+    'lib/kendo.scheduler.dayview.js', 
+    'lib/kendo.scheduler.monthview.js',   
+    'lib/kendo.scheduler.recurrence.js', 
+    'lib/kendo.scheduler.view.js', 
+    'lib/kendo.draganddrop.js', 
+    'lib/kendo.dropdownlist.js', 
+    'lib/kendo.editable.js', 
+    'lib/kendo.editor.js', 
+    'lib/kendo.treeview.js', 
+    'lib/kendo.mobile.actionsheet.js', 
+    'lib/kendo.mobile.application.js', 
+    'lib/kendo.mobile.loader.js', 
+    'lib/kendo.mobile.pane.js', 
+    'lib/kendo.mobile.popover.js', 
+    'lib/kendo.mobile.scroller.js', 
+    'lib/kendo.mobile.shim.js', 
+    'lib/kendo.mobile.view.js', 
   ], 'client'); 
-  api.add_files('lib/kendo.calendar.js', 'client');
-  api.add_files('lib/kendo.colorpicker.js', 'client');
-  api.add_files('lib/kendo.combobox.js', 'client');
-  api.add_files('lib/kendo.data.js', 'client');
-  api.add_files('lib/kendo.timepicker.js', 'client');
-  api.add_files('lib/kendo.datetimepicker.js', 'client');
-  api.add_files('lib/kendo.draganddrop.js', 'client');
-  api.add_files('lib/kendo.datetimepicker.js', 'client');
-  api.add_files('lib/kendo.draganddrop.js', 'client');
-  api.add_files('lib/kendo.dropdownlist.js', 'client');
-  api.add_files('lib/kendo.editable.js', 'client');
-  api.add_files('lib/kendo.editor.js', 'client');
-  api.add_files('lib/kendo.grid.js', 'client');
-  api.add_files('lib/kendo.imagebrowser.js', 'client');
-  api.add_files('lib/kendo.mobile.scroller.js', 'client');
-  api.add_files('lib/kendo.popup.js', 'client');
-  api.add_files('lib/kendo.progressbar.js', 'client');
-  api.add_files('lib/kendo.treeview.js', 'client');
-  api.add_files('lib/kendo.upload.js', 'client');
-  api.add_files('lib/kendo.window.js', 'client');
-  
-  //api.export('ken', 'client'); 
 });
 
